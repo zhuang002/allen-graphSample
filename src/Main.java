@@ -31,11 +31,21 @@ public class Main {
 		System.out.println();
 		tree2.listAllNodesDFS();*/
 		
-		Graph2DArrayIndirectional graph3 = new Graph2DArrayIndirectional();
+		/*Graph2DArrayIndirectional graph3 = new Graph2DArrayIndirectional();
 		graph3.loadGraph();
 		
 		System.out.println(graph3.isConnected());
-		System.out.println(graph3.containsRing());
+		System.out.println(graph3.containsRing());*/
+		
+		Graph2DArrayIndirectional graph3 = new Graph2DArrayIndirectional();
+		graph3.loadGraph();
+		
+		System.out.println(graph3.shortestDistance(0,13));
+		
+		
+		
+		
+		
 	}
 	
 

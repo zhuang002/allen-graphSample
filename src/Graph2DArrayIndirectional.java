@@ -113,4 +113,63 @@ public class Graph2DArrayIndirectional extends Graph2DArray implements Graph {
 		}
 		return true;
 	}
+
+	public int shortestDistance(int start, int end) {
+		// TODO Auto-generated method stub
+		MarkState[] marks = new MarkState[this.nNodes];
+
+		
+		int current = start;
+		marks[current]= new MarkState();
+		marks[current].distance = 0;
+		
+		while (current != -1) {
+			if (current==end) {
+				return marks[current].distance;
+			}
+			markNeighbours(current, end, marks);
+			int minDistance = Integer.MAX_VALUE;
+			int nextId = -1;
+
+			for (int i=0;i<marks.length;i++) {
+				MarkState state = marks[i];
+				if (state!=null && !state.processed) {
+					if (state.distance<minDistance) {
+						minDistance = state.distance;
+						nextId = i;
+					}
+				}
+			}
+			marks[current].processed = true;
+			current = nextId;
+			
+		} 
+		return -1;
+	}
+
+	private void markNeighbours(int current, int end, MarkState[] marks) {
+		// TODO Auto-generated method stub
+		for (int i=0;i<this.nNodes;i++) {
+			if (this.graphArray[current][i]>0) {
+				// there is a path
+				if (marks[i] == null) {
+					marks[i] = new MarkState();
+					marks[i].processed=false;
+					marks[i].distance = this.graphArray[current][i] + marks[current].distance;
+				} else {
+					int newDistance = this.graphArray[current][i] + marks[current].distance;
+					if (marks[i].distance > newDistance) {
+						marks[i].distance = newDistance;
+					}
+				}
+			}
+		}
+	}
+
+	
+}
+
+class MarkState {
+	boolean processed = false;
+	int distance = -1;
 }
